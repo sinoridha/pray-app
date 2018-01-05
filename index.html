@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Pray App</title>
+    </head>
+    <style>
+        body.sansserif {
+            background-color: #F2F2F2;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size:small;
+        }
+        .small-btn {
+            font-size:x-small;
+            padding: 0 5 0 5;
+            align-content: center;
+        }
+    </style>
+    <body class="sansserif">
+        <div align="center">
+            <h3>Jadwal Shalat Jakarta</h3>
+        </div>
+        <div align="center" class="sansserif" id="table"></div>
+        <div align="center">
+            <p onClick="closeApp()" class="small-btn">[close app]</p>
+        </div>
+    </body>
+</html>
+
+<script>
+    require('./src/index.js');
+</script>

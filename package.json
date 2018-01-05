@@ -1,0 +1,60 @@
+{
+  "name": "pray-app",
+  "version": "1.0.0",
+  "description": "Pray App Osx Version",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "pack": "build --dir",
+    "dist": "build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "pray-app"
+  },
+  "keywords": [
+    "pray",
+    "mac",
+    "osx",
+    "electron"
+  ],
+  "author": "Ridha Ramadhansyah",
+  "license": "MIT",
+  "build": {
+    "appId": "sino.ridha.prayapp",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "build/icon.ico"
+    }
+  },
+  "devDependencies": {
+    "electron": "1.7.10",
+    "electron-builder": "^19.52.1"
+  },
+  "dependencies": {
+    "moment": "^2.20.1",
+    "node-schedule": "^1.2.5",
+    "ontime": "0.0.3"
+  }
+}
