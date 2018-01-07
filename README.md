@@ -1,7 +1,8 @@
 # pray-app
 Menubar App Pray notification for desktop 
 
-This is VMVP (Very Minimum Viable Product), just show pray time info and sent os notification while praying time and play with electron.
+This is electron app showing muslim pray time at Jakarta and sent os notification while praying time and play with electron.
+
 Use http://praytimes.org/ lib for calculate pray time.
 
 How to install
