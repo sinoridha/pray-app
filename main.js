@@ -31,7 +31,7 @@ app.on('ready', () => {
     // width: 600,
     // height: 300,
     width: 180,
-    height: 190,
+    height: 225,
     icon: iconApp.getBitmap,
     show: false,
     frame: false,
