@@ -28,10 +28,10 @@ app.on('ready', () => {
 
   // Make the popup window for the menubar
   window = new BrowserWindow({
-    // width: 600,
-    // height: 300,
-    width: 180,
-    height: 190,
+    width: 600,
+    height: 300,
+    // width: 180,
+    // height: 225,
     icon: iconApp.getBitmap,
     show: false,
     frame: false,
@@ -69,7 +69,7 @@ const showWindow = () => {
     y = Math.round(trayPos.y + trayPos.height * 10)
   }
 
-  // window.webContents.openDevTools()
+  window.webContents.openDevTools()
 
   window.setPosition(x, y, false)
   window.show()

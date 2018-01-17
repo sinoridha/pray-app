@@ -8,12 +8,16 @@ const app = remote.app;
 
 moment.locale('id');
 
+let base64Icon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOaSURBVFhH7ZhLyBZVHIfHsPICXjEStSxTBHNTCYGF4W0TkhAUGrQQxQu6MEFaaESibbqI2EWhUqxFCYWiEC7UEGkRpdQitShTMUorRS3TvDzPeed83/A67/jlOzML8QcP7/mf98yc35yZ+Z9zJsnR23AI+oaoHk2GP2B6iAo0Ai7BFVhiRU3aC/a5P0QFWg42PAlfW1GDhsNlOAH2/SC0lFdwAFaCjR3RquWdsq/n09+XIVcPgA1Wwbi0vBSqlrf3KHSD7+E7yNV80NRjYOPfYQdUqT7wH6wPUZK8Dnq4O0RN+hj+hjtDlCSb4RzcEaJq9CRo6LkQJclTYPxMiJr0G+xsFIMWgY0fDVE1eg3sY2iIkmQAmEXWhiiju8CGHhA1HqybG6Jq9Dk4MFn9BLsbxU49DpqZFaKG+oF1b4SoGh2GXY1ih7bBr41iQz5j74JmvoBPMlyEb+FeKFtTwNupyWyfP4JefD6D3gcrzqe//8KZtKxBT3IEekOR+sN2eCVExdKcb2/sU/4EE7blC2k5mNSMw9oDzOZ2Mhts6InmpGXny1aaBD9A7GwLxAc/T873GvDZfwc8Zgg4GB+CF+tAbYQwe+jekfSgNTARPMjn4yvwwPuhWdZ9CrY12U6FZeDIm7JWQE9oVpw9TG0e58B0h2NwHDaB/78EycMQ77tpZiAopzs7OgvzrMjoNngBzJO2eQu86qhHYA94TldGEyArTWvO/30hvDD1BGjYeu9qLwiKs8jYEHXqF7BhVj6LcdS+hKLJ3QTsjOTztsCKjFzOeY5XQ9SpF8H6e0KUqqsGbwdzlI+CI+xIXk+DII7mYitSVWLwTbDdwhB1XaYyk7Ij6W1UpRt0ynPk3gvR/5eJ/2dwptBw6QY/A9/MwSG6MTlT2c9MKNWgL4bJ80ZHL8qR86XZCqUaNBH7/7PQrpzOzLulGowzy0PQrkzenuu+9Ldtg9ZXSdsGZV0FfAClGIxvcdkqPc2UrVsG29Utg80aDc4Qq6FjHVegWg3OALcOrlY8j58vRkGRajPoAsBVzj4YCU/DaXC/a9xKtRgcA25u3JraYZRrPuu/gVaL2loMbgD3JHkjFTdG00J0rWoxeBCy33OychOVZyCqFoOn4KNGMVee0z1wnm4ug+57rfTtczEZccPuSjpbl8W3t8ig//t5I+/Yv8A+/8nUidsK64dBh/xC4CeH7EecruLnkVbyK0PeMdfD3WO3JEmSq5tktJgdMACBAAAAAElFTkSuQmCC";
+let icon = nativeImage.createFromDataURL(base64Icon);
+icon = icon.resize({width:43,height:43});
+
+let today = null;
+if (today == undefined) {
+  today = moment();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-	let base64Icon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOaSURBVFhH7ZhLyBZVHIfHsPICXjEStSxTBHNTCYGF4W0TkhAUGrQQxQu6MEFaaESibbqI2EWhUqxFCYWiEC7UEGkRpdQitShTMUorRS3TvDzPeed83/A67/jlOzML8QcP7/mf98yc35yZ+Z9zJsnR23AI+oaoHk2GP2B6iAo0Ai7BFVhiRU3aC/a5P0QFWg42PAlfW1GDhsNlOAH2/SC0lFdwAFaCjR3RquWdsq/n09+XIVcPgA1Wwbi0vBSqlrf3KHSD7+E7yNV80NRjYOPfYQdUqT7wH6wPUZK8Dnq4O0RN+hj+hjtDlCSb4RzcEaJq9CRo6LkQJclTYPxMiJr0G+xsFIMWgY0fDVE1eg3sY2iIkmQAmEXWhiiju8CGHhA1HqybG6Jq9Dk4MFn9BLsbxU49DpqZFaKG+oF1b4SoGh2GXY1ih7bBr41iQz5j74JmvoBPMlyEb+FeKFtTwNupyWyfP4JefD6D3gcrzqe//8KZtKxBT3IEekOR+sN2eCVExdKcb2/sU/4EE7blC2k5mNSMw9oDzOZ2Mhts6InmpGXny1aaBD9A7GwLxAc/T873GvDZfwc8Zgg4GB+CF+tAbYQwe+jekfSgNTARPMjn4yvwwPuhWdZ9CrY12U6FZeDIm7JWQE9oVpw9TG0e58B0h2NwHDaB/78EycMQ77tpZiAopzs7OgvzrMjoNngBzJO2eQu86qhHYA94TldGEyArTWvO/30hvDD1BGjYeu9qLwiKs8jYEHXqF7BhVj6LcdS+hKLJ3QTsjOTztsCKjFzOeY5XQ9SpF8H6e0KUqqsGbwdzlI+CI+xIXk+DII7mYitSVWLwTbDdwhB1XaYyk7Ij6W1UpRt0ynPk3gvR/5eJ/2dwptBw6QY/A9/MwSG6MTlT2c9MKNWgL4bJ80ZHL8qR86XZCqUaNBH7/7PQrpzOzLulGowzy0PQrkzenuu+9Ldtg9ZXSdsGZV0FfAClGIxvcdkqPc2UrVsG29Utg80aDc4Qq6FjHVegWg3OALcOrlY8j58vRkGRajPoAsBVzj4YCU/DaXC/a9xKtRgcA25u3JraYZRrPuu/gVaL2loMbgD3JHkjFTdG00J0rWoxeBCy33OychOVZyCqFoOn4KNGMVee0z1wnm4ug+57rfTtczEZccPuSjpbl8W3t8ig//t5I+/Yv8A+/8nUidsK64dBh/xC4CeH7EecruLnkVbyK0PeMdfD3WO3JEmSq5tktJgdMACBAAAAAElFTkSuQmCC";
-	let icon = nativeImage.createFromDataURL(base64Icon);
-	icon = icon.resize({width:43,height:43});
-	console.log(icon.isEmpty());
-	console.log(icon.toBitmap());
   let n = new Notification("Welcom to Pray App (beta)", {
 		icon: icon.toBitmap(),
 		body: "Please give feedback to sinoridha@gmail.com"
@@ -23,13 +27,21 @@ document.addEventListener("DOMContentLoaded", () => {
 setScedule();
 
 setInterval(function() {
-  setScedule();
-}, 60 * 60 * 1000);
+  // console.log('[condition]', today.format('YYYY-MM-DD') == moment().format('YYYY-MM-DD'));
+  if (today.format('YYYY-MM-DD') != moment().format('YYYY-MM-DD')) {
+    console.log('[setScedule] true');
+    today = moment();
+    setScedule();
+  } else {
+    console.log('[setScedule] false');
+  }
+}, 60 * 1000);
 
 function setScedule() {
-	console.log('scedule set')
+	console.log('setScedule() run')
   const times = getPrayTime();
   const ftimes = formatingDate(times);
+  setNotificationSchedule('2018-01-12 14:16:30', "Pray Time1 !", "It's fajr, let pray.");
   setNotificationSchedule(ftimes["fajr"], "Pray Time!", "It's fajr, let pray.");
 	setNotificationSchedule(ftimes["dhuhr"], "Pray Time!", "It's dhuhr, let pray.");
 	setNotificationSchedule(subtractInMinutes(ftimes["dhuhr"],5), "Pray Time will come soon!", "5 Minutes to Dhuhr.");
@@ -101,6 +113,7 @@ function getPrayTime() {
   list["dhuhr"] = "Dhuhur";
   list["asr"] = "Ashar";
   list["maghrib"] = "Magrib";
+  list["isha"] = "Isha";
   // list["midnight"] = "Tengah malam";
   for (var i in list) {
     html += "<tr><td align='left'>" + list[i] + "</td>";
@@ -122,17 +135,28 @@ function setNotificationSchedule(time, title, text) {
 	var ss = mtime.format('ss');
 	var date = new Date(YYYY, (MM - 1), DD, HH, mm, ss);
 
-	var j = schedule.scheduleJob(date, function(){
-		let base64Icon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOaSURBVFhH7ZhLyBZVHIfHsPICXjEStSxTBHNTCYGF4W0TkhAUGrQQxQu6MEFaaESibbqI2EWhUqxFCYWiEC7UEGkRpdQitShTMUorRS3TvDzPeed83/A67/jlOzML8QcP7/mf98yc35yZ+Z9zJsnR23AI+oaoHk2GP2B6iAo0Ai7BFVhiRU3aC/a5P0QFWg42PAlfW1GDhsNlOAH2/SC0lFdwAFaCjR3RquWdsq/n09+XIVcPgA1Wwbi0vBSqlrf3KHSD7+E7yNV80NRjYOPfYQdUqT7wH6wPUZK8Dnq4O0RN+hj+hjtDlCSb4RzcEaJq9CRo6LkQJclTYPxMiJr0G+xsFIMWgY0fDVE1eg3sY2iIkmQAmEXWhiiju8CGHhA1HqybG6Jq9Dk4MFn9BLsbxU49DpqZFaKG+oF1b4SoGh2GXY1ih7bBr41iQz5j74JmvoBPMlyEb+FeKFtTwNupyWyfP4JefD6D3gcrzqe//8KZtKxBT3IEekOR+sN2eCVExdKcb2/sU/4EE7blC2k5mNSMw9oDzOZ2Mhts6InmpGXny1aaBD9A7GwLxAc/T873GvDZfwc8Zgg4GB+CF+tAbYQwe+jekfSgNTARPMjn4yvwwPuhWdZ9CrY12U6FZeDIm7JWQE9oVpw9TG0e58B0h2NwHDaB/78EycMQ77tpZiAopzs7OgvzrMjoNngBzJO2eQu86qhHYA94TldGEyArTWvO/30hvDD1BGjYeu9qLwiKs8jYEHXqF7BhVj6LcdS+hKLJ3QTsjOTztsCKjFzOeY5XQ9SpF8H6e0KUqqsGbwdzlI+CI+xIXk+DII7mYitSVWLwTbDdwhB1XaYyk7Ij6W1UpRt0ynPk3gvR/5eJ/2dwptBw6QY/A9/MwSG6MTlT2c9MKNWgL4bJ80ZHL8qR86XZCqUaNBH7/7PQrpzOzLulGowzy0PQrkzenuu+9Ldtg9ZXSdsGZV0FfAClGIxvcdkqPc2UrVsG29Utg80aDc4Qq6FjHVegWg3OALcOrlY8j58vRkGRajPoAsBVzj4YCU/DaXC/a9xKtRgcA25u3JraYZRrPuu/gVaL2loMbgD3JHkjFTdG00J0rWoxeBCy33OychOVZyCqFoOn4KNGMVee0z1wnm4ug+57rfTtczEZccPuSjpbl8W3t8ig//t5I+/Yv8A+/8nUidsK64dBh/xC4CeH7EecruLnkVbyK0PeMdfD3WO3JEmSq5tktJgdMACBAAAAAElFTkSuQmCC";
-		let icon = nativeImage.createFromDataURL(base64Icon);
-		icon = icon.resize({width:43,height:43});
-		console.log(icon.isEmpty());
-		console.log(icon.toBitmap());
-		let n = new Notification(title, {
+	// var j = schedule.scheduleJob(date, function(){
+	// 	let base64Icon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOaSURBVFhH7ZhLyBZVHIfHsPICXjEStSxTBHNTCYGF4W0TkhAUGrQQxQu6MEFaaESibbqI2EWhUqxFCYWiEC7UEGkRpdQitShTMUorRS3TvDzPeed83/A67/jlOzML8QcP7/mf98yc35yZ+Z9zJsnR23AI+oaoHk2GP2B6iAo0Ai7BFVhiRU3aC/a5P0QFWg42PAlfW1GDhsNlOAH2/SC0lFdwAFaCjR3RquWdsq/n09+XIVcPgA1Wwbi0vBSqlrf3KHSD7+E7yNV80NRjYOPfYQdUqT7wH6wPUZK8Dnq4O0RN+hj+hjtDlCSb4RzcEaJq9CRo6LkQJclTYPxMiJr0G+xsFIMWgY0fDVE1eg3sY2iIkmQAmEXWhiiju8CGHhA1HqybG6Jq9Dk4MFn9BLsbxU49DpqZFaKG+oF1b4SoGh2GXY1ih7bBr41iQz5j74JmvoBPMlyEb+FeKFtTwNupyWyfP4JefD6D3gcrzqe//8KZtKxBT3IEekOR+sN2eCVExdKcb2/sU/4EE7blC2k5mNSMw9oDzOZ2Mhts6InmpGXny1aaBD9A7GwLxAc/T873GvDZfwc8Zgg4GB+CF+tAbYQwe+jekfSgNTARPMjn4yvwwPuhWdZ9CrY12U6FZeDIm7JWQE9oVpw9TG0e58B0h2NwHDaB/78EycMQ77tpZiAopzs7OgvzrMjoNngBzJO2eQu86qhHYA94TldGEyArTWvO/30hvDD1BGjYeu9qLwiKs8jYEHXqF7BhVj6LcdS+hKLJ3QTsjOTztsCKjFzOeY5XQ9SpF8H6e0KUqqsGbwdzlI+CI+xIXk+DII7mYitSVWLwTbDdwhB1XaYyk7Ij6W1UpRt0ynPk3gvR/5eJ/2dwptBw6QY/A9/MwSG6MTlT2c9MKNWgL4bJ80ZHL8qR86XZCqUaNBH7/7PQrpzOzLulGowzy0PQrkzenuu+9Ldtg9ZXSdsGZV0FfAClGIxvcdkqPc2UrVsG29Utg80aDc4Qq6FjHVegWg3OALcOrlY8j58vRkGRajPoAsBVzj4YCU/DaXC/a9xKtRgcA25u3JraYZRrPuu/gVaL2loMbgD3JHkjFTdG00J0rWoxeBCy33OychOVZyCqFoOn4KNGMVee0z1wnm4ug+57rfTtczEZccPuSjpbl8W3t8ig//t5I+/Yv8A+/8nUidsK64dBh/xC4CeH7EecruLnkVbyK0PeMdfD3WO3JEmSq5tktJgdMACBAAAAAElFTkSuQmCC";
+	// 	let icon = nativeImage.createFromDataURL(base64Icon);
+	// 	icon = icon.resize({width:43,height:43});
+	// 	console.log(icon.isEmpty());
+	// 	console.log(icon.toBitmap());
+	// 	let n = new Notification(title, {
+  //     body: text,
+  //     icon: icon
+  //   });
+  // });
+
+  ontime({
+    cycle: [ time ]
+  }, function (ot) {
+    let n = new Notification(title, {
       body: text,
       icon: icon
     });
-	});
+    ot.done()
+    return;
+  })
 }
 
 global.closeApp = function () {

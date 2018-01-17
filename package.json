@@ -55,6 +55,6 @@
   "dependencies": {
     "moment": "^2.20.1",
     "node-schedule": "^1.2.5",
-    "ontime": "0.0.3"
+    "ontime": "0.0.4"
   }
 }
