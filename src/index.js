@@ -27,7 +27,7 @@ list["isha"] = "Isha";
 //list["now"] = "Sekarang";
 
 document.addEventListener("DOMContentLoaded", () => {
-  let n = new Notification("Welcom to Pray App (beta)", {
+  let n = new Notification("Welcome to Pray App (beta)", {
 		icon: icon,
 		body: "Please give feedback to sinoridha@gmail.com"
   });

@@ -8,12 +8,14 @@ let tray = undefined
 let window = undefined
 
 let icon = nativeImage.createFromPath('/usr/local/var/www/pray-app/build/background.png');
+let iconTray = nativeImage.createFromPath('/usr/local/var/www/pray-app/build/trayIcon.png');
+
 
 // This method is called once Electron is ready to run our code
 // It is effectively the main method of our Electron app
 app.on('ready', () => {
   // Setup the menubar with an icon
-  let iconTry = icon.resize({width:18,height:18});
+  let iconTry = iconTray.resize({width:18,height:18});
   let iconApp = icon.resize({width:64,height:64});
   tray = new Tray(iconTry)
 

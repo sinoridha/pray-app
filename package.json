@@ -22,7 +22,7 @@
   "author": "Ridha Ramadhansyah",
   "license": "MIT",
   "build": {
-    "appId": "sino.ridha.prayapp2",
+    "appId": "sino.ridha.prayapp3",
     "dmg": {
       "contents": [
         {
