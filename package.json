@@ -1,7 +1,7 @@
 {
-  "name": "pray-app",
+  "name": "PrayApp",
   "version": "1.0.0",
-  "description": "Pray App Osx Version",
+  "description": "Muslim Pray Tray App",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -22,7 +22,7 @@
   "author": "Ridha Ramadhansyah",
   "license": "MIT",
   "build": {
-    "appId": "sino.ridha.prayapp",
+    "appId": "sino.ridha.prayapp2",
     "dmg": {
       "contents": [
         {
