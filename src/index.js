@@ -18,18 +18,24 @@ if (today == undefined) {
 }
 
 const list = [];
+list["bffajr"] = "5 minutes before Subuh";
 list["fajr"] = "Subuh";
 list["sunrise"] = "Shuruq";
+list["bfdhuhr"] = "5 minutes before Dhuhur";
 list["dhuhr"] = "Dhuhur";
+list["bfasr"] = "5 minutes before Ashar";
 list["asr"] = "Ashar";
+list["bfmaghrib"] = "5 minutes before Magrib";
 list["maghrib"] = "Magrib";
+list["bfisha"] = "5 minutes before Isha";
 list["isha"] = "Isha";
-//list["now"] = "Sekarang";
+// list["bfnow"] = "Sekarang";
 
 document.addEventListener("DOMContentLoaded", () => {
   let n = new Notification("Welcome to Pray App (beta)", {
 		icon: icon,
-		body: "Please give feedback to sinoridha@gmail.com"
+    body: "The Pray App is now available on your tray.\nPlease give feedback to sinoridha@gmail.com.",
+    action: {type: 'button', text: 'wow'}
   });
 });
 checkTime();
@@ -44,20 +50,32 @@ ontime({
 })
 
 function checkTime() {
-  times = getPrayTime();
-
+  let times = getPrayTime();
   console.log('times',times);
-  Object.keys(times).forEach(function(key,index) {
+
+  updateTimeTable(times);
+
+  let newTime = addBeforeRemainder(times)
+  // newTime['bfnow'] = '16:01';
+  console.log('times with remainder',newTime);
+
+  Object.keys(newTime).forEach(function(key,index) {
     const now = moment().format("HH:mm");
-    if (now == times[key] &&  list[key] != undefined) {
-      const title = 'Time to Pray!';
-      const text = list[key] + ' has come!';
+    if (now == newTime[key] &&  list[key] != undefined) {
+      console.log('check '+ key + ' is match now: '+ now + ' & time: ' + newTime[key]);
+      let title = 'Time to Pray!';
+      let text = 'It is ' + list[key] + ' time';
+      console.log('key.startsWith(bf)',key.startsWith('bf'));
+      if (key.startsWith('bf')) {
+        title = 'Pray time will come soon!';
+        text = 'It is ' + list[key];
+      }
       let n = new Notification(title, {
         body: text,
         icon: icon
       });
     } else {
-      console.log('check '+ key + ' not match now: '+ now + ' & time: ' + times[key]);
+      console.log('check '+ key + ' not match now: '+ now + ' & time: ' + newTime[key]);
     }
 
   });
@@ -67,34 +85,35 @@ function getPrayTime() {
   var date = new Date(); // today
   prayTime.prayTimes.setMethod("Egypt");
   var times = prayTime.prayTimes.getTimes(date, [-6.1751, 106.865]);
+  return times;
+}
 
-  //times['now'] = "16:56";
-  // Update display
+function addBeforeRemainder(times) {
+  console.log('time in addBeforeRemainder', times);
+  let newTime = Object.assign({},times);
+  const minBefore = 5;
+  Object.keys(times).forEach(function(key,index) {
+    var time = moment(times[key],'hh:mm');
+    var notifTime = time.subtract(minBefore,'minutes')
+    newTime['bf'+key] = notifTime.format('HH:mm');
+  });
+  return newTime;
+}
+
+function updateTimeTable(times) {
+  const willDisplay = ['fajr','sunrise','dhuhr','asr','maghrib','isha'];
+
   var html = '<table id="timetable" width="150" style="font-size:small;">';
-  var month = []; // @todo : should use moment.js
-  month[0] = "January";
-  month[1] = "February";
-  month[2] = "March";
-  month[3] = "April";
-  month[4] = "May";
-  month[5] = "June";
-  month[6] = "July";
-  month[7] = "August";
-  month[8] = "September";
-  month[9] = "October";
-  month[10] = "November";
-  month[11] = "December";
-  var days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
   html += '<tr><th colspan="2">' + moment().format("dddd, Do MMMM YYYY") + "</th></tr>";
 
   for (var i in list) {
-    html += "<tr><td align='left'>" + list[i] + "</td>";
-    html += "<td align='right'>" + times[i] + "</td></tr>";
+    if (willDisplay.includes(i)) {
+      html += "<tr><td align='left'>" + list[i] + "</td>";
+      html += "<td align='right'>" + times[i] + "</td></tr>";
+    }
   }
   html += "</table>";
   document.getElementById("table").innerHTML = html;
-
-  return times;
 }
 
 global.closeApp = function () {
