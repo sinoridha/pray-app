@@ -1,5 +1,5 @@
 # pray-app
-Menubar App Pray notification for desktop 
+Menubar App Pray notification for desktop
 
 This is electron app showing muslim pray time at Jakarta and sent os notification while praying time and play with electron.
 
@@ -24,6 +24,8 @@ How to compile this app to electron app.
 npm run pack
 npm run dist
 ```
+
+Node versio : v12.3.1 (tested)
 
 Note: tested on macOS siera only
 

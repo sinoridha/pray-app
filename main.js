@@ -6,8 +6,8 @@ const assetsDir = path.join(__dirname, 'assets');
 let tray = undefined
 let window = undefined
 
-let icon = nativeImage.createFromPath('/usr/local/var/www/pray-app/build/background.png');
-let iconTray = nativeImage.createFromPath('/usr/local/var/www/pray-app/build/trayIcon.png');
+let icon = nativeImage.createFromPath('./build/background.png');
+let iconTray = nativeImage.createFromPath('/Users/ridha/workspace/pray-app/build/trayIcon.png');
 
 const isDebug = 0;
 
@@ -33,8 +33,8 @@ app.on('ready', () => {
   // Make the popup window for the menubar
   if (isDebug) {
     window = new BrowserWindow({
-      width: 900,
-      height: 300,
+      width: 200,
+      height: 220,
       // width: 180,
       // height: 225,
       icon: iconApp.getBitmap,
@@ -46,8 +46,8 @@ app.on('ready', () => {
     window = new BrowserWindow({
       //width: 900,
       //height: 300,
-      width: 185,
-      height: 225,
+      width: 200,
+      height: 220,
       icon: iconApp.getBitmap,
       show: false,
       frame: false,

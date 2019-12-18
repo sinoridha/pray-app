@@ -8,7 +8,8 @@ const app = remote.app;
 
 moment.locale('id');
 
-let icon = nativeImage.createFromPath('/usr/local/var/www/pray-app/build/background.png');
+// let icon = nativeImage.createFromPath('./build/background.png');
+let icon = nativeImage.createFromPath('/Users/ridha/workspace/pray-app/build/trayIcon.png');
 icon = icon.resize({width:64,height:64});
 console.log('Size icon',icon.getSize());
 
@@ -32,9 +33,9 @@ list["isha"] = "Isha";
 // list["bfnow"] = "Sekarang";
 
 document.addEventListener("DOMContentLoaded", () => {
-  let n = new Notification("Welcome to Pray App (beta)", {
+  let n = new Notification("Welcome to Zikir Indonesia (beta)", {
 		icon: icon,
-    body: "The Pray App is now available on your tray.\nPlease give feedback to sinoridha@gmail.com.",
+    body: "Zikir Indonesia is now available on your tray.\nPlease give feedback to sinoridha@gmail.com.",
     action: {type: 'button', text: 'wow'}
   });
 });
@@ -82,9 +83,16 @@ function checkTime() {
 }
 
 function getPrayTime() {
+  // Setup Config Pray Time adjustment
   var date = new Date(); // today
   prayTime.prayTimes.setMethod("Egypt");
-  var times = prayTime.prayTimes.getTimes(date, [-6.1751, 106.865]);
+  prayTime.prayTimes.adjust({ fajr: 20, asr: 'Standard', isha: 18 });
+	prayTime.prayTimes.tune({
+		fajr: 2, sunrise: -2, dhuhr: 3, asr: 2, maghrib: 2, isha: 2
+	});
+  // define latitude longitued
+  // -6.190358,106.8233313 //sinar mas land
+  var times = prayTime.prayTimes.getTimes(date, [-6.190358, 106.8233313]);
   return times;
 }
 
@@ -103,7 +111,7 @@ function addBeforeRemainder(times) {
 function updateTimeTable(times) {
   const willDisplay = ['fajr','sunrise','dhuhr','asr','maghrib','isha'];
 
-  var html = '<table id="timetable" width="150" style="font-size:small;">';
+  var html = '<table id="timetable" width="160" style="font-size:small;">';
   html += '<tr><th colspan="2">' + moment().format("dddd, Do MMMM YYYY") + "</th></tr>";
 
   for (var i in list) {
