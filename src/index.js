@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const ontime = require("ontime");
 const { nativeImage } = require("electron");
 const prayTime = require("./PrayTimes");
@@ -5,7 +7,7 @@ const moment = require("moment");
 const schedule = require('node-schedule');
 const remote = require('electron').remote;
 const app = remote.app;
-
+const { dialog } = require('electron')
 moment.locale('id');
 
 // let icon = nativeImage.createFromPath('./build/background.png');
@@ -16,6 +18,31 @@ console.log('Size icon',icon.getSize());
 let today = null;
 if (today == undefined) {
   today = moment();
+}
+
+
+global.setting = openConfig();
+function openConfig() {
+  const filePath = app.getPath('home') + '/zikir-indonesia-setting.json';
+  console.log('filePath', filePath)
+
+  try {
+    let rawdata = fs.readFileSync(filePath);
+    return setting = JSON.parse(rawdata);
+  } catch(err) {
+    console.log('Error open file : ', err);
+    const options = {
+      type: 'error',
+      buttons: ['Closed'],
+      title: 'Error',
+      // message: err.message,
+      message: 'File setting tidak tersedia',
+      detail: 'Lokasi seting file: ' + filePath,
+    };
+    remote.dialog.showMessageBox(null, options, (response, checkboxChecked) => {
+      console.log(checkboxChecked);
+    });
+  }
 }
 
 const list = [];
@@ -49,6 +76,7 @@ ontime({
   ot.done()
   return;
 })
+
 
 function checkTime() {
   let times = getPrayTime();
@@ -92,7 +120,8 @@ function getPrayTime() {
 	});
   // define latitude longitued
   // -6.190358,106.8233313 //sinar mas land
-  var times = prayTime.prayTimes.getTimes(date, [-6.190358, 106.8233313]);
+  // var times = prayTime.prayTimes.getTimes(date, [-6.190358, 106.8233313]);
+  var times = prayTime.prayTimes.getTimes(date, [setting.latitude, setting.longitude]);
   return times;
 }
 

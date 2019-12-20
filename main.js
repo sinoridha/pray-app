@@ -9,7 +9,8 @@ let window = undefined
 let icon = nativeImage.createFromPath('./build/background.png');
 let iconTray = nativeImage.createFromPath('/Users/ridha/workspace/pray-app/build/trayIcon.png');
 
-const isDebug = 0;
+// Set is isDebug = 0 to display console log
+const isDebug = 1;
 
 // This method is called once Electron is ready to run our code
 // It is effectively the main method of our Electron app
@@ -33,8 +34,8 @@ app.on('ready', () => {
   // Make the popup window for the menubar
   if (isDebug) {
     window = new BrowserWindow({
-      width: 200,
-      height: 220,
+      width: 800,
+      height: 880,
       // width: 180,
       // height: 225,
       icon: iconApp.getBitmap,
